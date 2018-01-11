@@ -64,14 +64,19 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
 
         TacheArrayAdapter tacheAdapter = new TacheArrayAdapter(this, tacheList);
 
-      //  tacheListView.setOnItemClickListener(this);
+        tacheListView.setOnItemClickListener(this);
         // définition de l'adapter de notre listView
 
         tacheListView.setAdapter(tacheAdapter);
     }
 
+    public void onCheck(View view){
+        int pos = (int) view.getTag();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+        Toast.makeText(this,"selectionné" + i, Toast.LENGTH_SHORT).show();
     }
 }

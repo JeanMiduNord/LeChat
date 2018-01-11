@@ -46,6 +46,8 @@ public class TacheArrayAdapter extends ArrayAdapter {
         CheckBox checkBoxDone = view.findViewById(R.id.checkBoxDone);
         checkBoxDone.setChecked(tacheData.getDone()==1);
 
+        checkBoxDone.setTag(position);
+
         return view;
     }
 
