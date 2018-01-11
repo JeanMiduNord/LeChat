@@ -7,19 +7,28 @@
     android:orientation="vertical"
     tools:context="com.m2i.toutdouxliste.MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sélectionner l'état des tâches" />
+
+    <Spinner
+        android:id="@+id/spSelectEtat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
-        android:id="@+id/btnAddContact"
+        android:id="@+id/btnAddTache"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nouvelle tâche"
-        android:onClick="openAddTache"/>
-
-
+        android:onClick="addTache"
+        />
 
     <ListView
-        android:id="@+id/contactListView"
+        android:id="@+id/tacheListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:choiceMode="singleChoice"
         android:listSelector="@color/colorPrimary"/>
 
@@ -27,12 +36,7 @@
         android:id="@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Coucou"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
+        android:gravity="bottom"
+        android:text="Coucou" />
 
 </LinearLayout>
