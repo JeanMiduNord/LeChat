@@ -13,6 +13,7 @@ import com.m2i.database.TacheDAO;
 
 public class manageTacheActivity extends AppCompatActivity {
     private EditText edtTache;
+    private EditText edtUserName;
     private TacheDAO dao;
 
     @Override
@@ -21,7 +22,7 @@ public class manageTacheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_tache);
 
         edtTache = (EditText) findViewById(R.id.edtTache);
-
+        edtUserName = (EditText) findViewById(R.id.edtUserName);
         ActionBar actionBar = getActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -29,12 +30,9 @@ public class manageTacheActivity extends AppCompatActivity {
     }
 
     public void valideTache(View view){
-        int toto;
-
-        toto = 5;
-        if (edtTache.getText().toString() != ""){
+        if (!edtTache.getText().toString().trim().equals("")){
             dao = new TacheDAO(new DatabaseHandler(this));
-            Tache tache = new Tache(edtTache.getText().toString() ,0);
+            Tache tache = new Tache(edtTache.getText().toString(),0,edtUserName.getText().toString());
             dao.persist(tache);
             Toast.makeText(this,"Enregistrement effectué.", Toast.LENGTH_SHORT).show();
         }

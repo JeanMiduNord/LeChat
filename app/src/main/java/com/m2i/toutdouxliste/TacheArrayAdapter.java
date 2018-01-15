@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class TacheArrayAdapter extends ArrayAdapter {
         // Liaison entre les données et la Vue
         TextView tacheTextView = view.findViewById(R.id.listTextViewTache);
         tacheTextView.setText(tacheData.getTache());
+
+        TextView userNameTextView = view.findViewById(R.id.listTextViewUserName);
+        userNameTextView.setText(tacheData.getUserName());
 
         CheckBox checkBoxDone = view.findViewById(R.id.checkBoxDone);
         checkBoxDone.setChecked(tacheData.getDone()==1);

@@ -5,14 +5,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 
 import java.util.ArrayList;
-// import java.util.List;package fr.sm.database;
 
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 
-// import com.example.formation.localsqlapp.model.Contact;
 
 import com.m2i.toutdouxliste.Tache;
 
@@ -47,12 +45,28 @@ public class TacheDAO {
         return tache;
     }
 
-    public List<Tache> findAll() throws SQLiteException{
-        // Instanciation de la liste de contacts
+    public List<Tache> findAll(int etat) throws SQLiteException{
+        // définition de ce qu'il faut afficher
+        // en fonction du spinner etat
+
+        String where = "";
+        switch(etat){
+            case 0:
+                where = " where done = 10";
+                break;
+            case 1:
+                where = " where done = 1";
+                break;
+            case 2:
+                where = " where done = 0";
+                break;
+        }
+
+        // Instanciation de la liste des taches
         List<Tache> tacheList = new ArrayList<>();
         // exécution de la requête sql
 
-        String sql = "Select id, tache, done from tache ";
+        String sql = "Select id, tache, done, userName from tache " + where;
         Cursor cursor = this.db.getReadableDatabase().rawQuery(sql,null);
 
         //boucle sur le curseur
@@ -69,6 +83,7 @@ public class TacheDAO {
         tache.setId(cursor.getLong(0));
         tache.setTache(cursor.getString(1));
         tache.setDone(cursor.getInt(2));
+        tache.setUserName(cursor.getString(3));
         return tache;
     }
 
@@ -91,6 +106,7 @@ public class TacheDAO {
         ContentValues values = new ContentValues();
         values.put("tache", entity.getTache());
         values.put("done", entity.getDone());
+        values.put("userName", entity.getUserName());
         return values;
     }
 

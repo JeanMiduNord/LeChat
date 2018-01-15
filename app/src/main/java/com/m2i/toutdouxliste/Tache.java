@@ -6,6 +6,7 @@ public class Tache {
     private Long id;
     private String tache;
     private int done;
+    private String userName;
 
     public Tache() {
     }
@@ -16,9 +17,10 @@ public class Tache {
         this.done = done;
     }
 
-    public Tache(String tache, int done) {
+    public Tache(String tache, int done, String userName) {
         this.tache = tache;
         this.done = done;
+        this.userName = userName;
     }
 
     public Long getId() {
@@ -45,6 +47,15 @@ public class Tache {
 
     public Tache setDone(int done) {
         this.done = done;
+        return this;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public Tache setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 }

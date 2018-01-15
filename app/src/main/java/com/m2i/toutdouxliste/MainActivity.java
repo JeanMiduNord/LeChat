@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity  implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener{
     private Spinner spSelectEtat;
     private final String[] CONTENU_SPINNER = {"","En cours", "Inactif", "Les deux"};
+    private int etatSelected;
     private ListView tacheListView;
     private List<Tache> tacheList;
     private TacheDAO dao;
@@ -38,13 +40,18 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
         spSelectEtat.setAdapter(aa);
 
         tacheListInit();
+
+
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if (CONTENU_SPINNER[i] != "") {
+        etatSelected = i;
+        tacheListInit();
+        /*if (CONTENU_SPINNER[i] != "") {
             Toast.makeText(this, CONTENU_SPINNER[i], Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     @Override
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
     private void tacheListInit() {
         //récupération de la liste des contacts ancienne méthode
 
-        tacheList = dao.findAll();
+        tacheList = dao.findAll(etatSelected);
 
         TacheArrayAdapter tacheAdapter = new TacheArrayAdapter(this, tacheList);
 
@@ -71,7 +78,25 @@ public class MainActivity extends AppCompatActivity  implements AdapterView.OnIt
     }
 
     public void onCheck(View view){
+        // récupération de la position de l'élément sélectionné
         int pos = (int) view.getTag();
+
+        // chargement de la tache
+
+        String libTache = tacheList.get(pos).getTache();
+        String userName = tacheList.get(pos).getUserName();
+        // solution 1
+        int done = tacheList.get(pos).getDone();
+        int newDone = (done==0 ? 1 : 0);
+
+        // solution 2 récupérer les valeurs de l'écran
+        // CheckBox check = (CheckBox) v;
+        // boolean bDdone = check.isChecked();
+
+        Tache tache = new Tache(libTache,newDone, userName);
+        tache.setId(tacheList.get(pos).getId());
+        // mise à jour de la tache
+        dao.persist(tache);
     }
 
     @Override
